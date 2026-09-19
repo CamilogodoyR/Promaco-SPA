@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuracion general y metadatos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promaco SpA - Panel Administrador</title>
+    <!-- Bootstrap 5.3.3 y estilos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../estilo_login.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-dark text-light">
+
+<!-- Barra de navegacion del panel administrativo -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-3 border-bottom border-dark">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-white m-0 d-flex align-items-center gap-2" href="dashboard.html">
+            <img src="../img/promaco_logo_transparente.png" alt="Logo Promaco" style="height: 38px; width: auto;">
+            <span>Promaco SpA - Admin</span>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAdmin">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAdmin">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+                <li class="nav-item"><a class="nav-link text-light active" href="dashboard.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="usuarios.html">Usuarios</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="../tienda/catalogo.html">Ver Catalogo</a></li>
+                <li class="nav-item ms-lg-3"><a href="../index.html" class="btn btn-danger btn-sm px-3">Cerrar Sesion</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal del panel de control -->
+<main class="container py-5 my-auto">
+    <div class="card p-4 text-dark shadow bg-light">
+        <h1 class="h3 fw-bold">Panel de Administracion</h1>
+        <p class="text-muted">Bienvenido al panel de control de Promaco SpA. Desde aqui puedes gestionar los usuarios del sistema.</p>
+        <a href="usuarios.html" class="btn btn-dark mt-2" style="width: fit-content;">Ir a Usuarios</a>
+    </div>
+</main>
+
+<!-- Pie de pagina institucional -->
+<footer class="text-center py-4 mt-auto bg-black text-muted">
+    <div class="container"><p class="mb-0 small">🏗️ Constructora Promaco SpA - Todos los derechos reservados</p></div>
+</footer>
+
+<!-- Scripts de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
