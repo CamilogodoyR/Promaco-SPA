@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#92400e"/>
+  <rect x="16" y="16" width="368" height="268" rx="14" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+  <text x="200" y="135" font-size="72" text-anchor="middle">🪵</text>
+  <text x="200" y="200" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#fff" text-anchor="middle">Pino 2x4"</text>
+  <text x="200" y="235" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.85)" text-anchor="middle">3,2 m</text>
+</svg>
