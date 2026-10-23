@@ -1,0 +1,139 @@
+/* =========================================================
+   ESTILOS PERSONALIZADOS DE PROMACO SPA
+   Se cargan después de Bootstrap para sobrescribir lo necesario.
+   ========================================================= */
+
+/* Fondo industrial (heredado de estilo_login.css de la entrega 1) */
+html,
+body {
+  background-color: #0d131f;
+}
+
+body {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(135deg, #0d131f 0%, #161f30 50%, #090e17 100%);
+  background-size: 20px 20px, 100% 100%;
+  background-attachment: fixed;
+  color: #e2e8f0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra de navegación tipo "ladrillo" */
+.navbar-ladrillos {
+  background: linear-gradient(90deg, #3a1f14 0%, #5a2d1c 50%, #3a1f14 100%);
+  border-bottom: 3px solid #d97a34;
+}
+
+.navbar-brand-logo img {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+/* Tarjetas blancas (login, productos, formularios) */
+.card,
+.login-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  color: #1e293b;
+}
+
+.producto-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.producto-card {
+  transition: transform 0.15s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-4px);
+}
+
+.precio-antiguo {
+  text-decoration: line-through;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.categoria-tile {
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.categoria-tile.activa,
+.categoria-tile:hover {
+  border-color: #d97a34;
+}
+
+.hero-promaco {
+  background: linear-gradient(120deg, rgba(217, 122, 52, 0.25), rgba(13, 19, 31, 0.6));
+  border: 1px solid rgba(217, 122, 52, 0.4);
+}
+
+/* Botón con el color de la marca */
+.btn-promaco {
+  background-color: #d97a34;
+  border-color: #d97a34;
+  color: #fff;
+}
+
+.btn-promaco:hover {
+  background-color: #b8642a;
+  border-color: #b8642a;
+  color: #fff;
+}
+
+/* Pie de página corporativo */
+footer.footer-promaco {
+  background-color: #080c14;
+  border-top: 1px solid #1e293b;
+  color: #94a3b8;
+  margin-top: auto;
+}
+
+/* ---------- Panel de administración ---------- */
+.admin-sidebar {
+  background-color: #0f172a;
+  min-height: 100%;
+}
+
+.admin-sidebar .nav-link {
+  color: #cbd5e1;
+  border-radius: 6px;
+}
+
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:hover {
+  background-color: #d97a34;
+  color: #fff;
+}
+
+.admin-contenido {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  min-height: calc(100vh - 56px);
+}
+
+.admin-contenido .card {
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.stat-card {
+  border: 0;
+  color: #fff;
+}
