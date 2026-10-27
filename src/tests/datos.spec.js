@@ -28,13 +28,13 @@ describe('CRUD del archivo de datos (db.js)', () => {
   });
 
   it('ELIMINAR: borra el registro y devuelve false si no existía', () => {
-    expect(db.eliminar('productos', 1)).toBeTrue();
+    expect(db.eliminar('productos', 1)).toBe(true);
     expect(db.obtener('productos', 1)).toBeNull();
-    expect(db.eliminar('productos', 999)).toBeFalse();
+    expect(db.eliminar('productos', 999)).toBe(false);
   });
 
   it('si localStorage tiene datos corruptos, vuelve a los datos iniciales (mock de getItem)', () => {
-    spyOn(Storage.prototype, 'getItem').and.returnValue('{esto no es json');
+    vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('{esto no es json');
     expect(db.listar('categorias').length).toBe(5);
   });
 
@@ -74,7 +74,7 @@ describe('Lógica del carrito', () => {
       direccion: { calle: 'Calle 1', region: 'Región de Valparaíso', comuna: 'Quilpué' },
       carrito: db.obtenerCarrito(),
     });
-    expect(resultado.ok).toBeTrue();
+    expect(resultado.ok).toBe(true);
     expect(db.obtener('productos', 1).stock).toBe(310);
     expect(db.listar('ordenes').length).toBe(4);
     expect(db.obtenerCarrito().length).toBe(0);
@@ -83,19 +83,19 @@ describe('Lógica del carrito', () => {
 
 describe('Validaciones (migradas de la entrega 1)', () => {
   it('correoValido acepta solo los dominios permitidos', () => {
-    expect(correoValido('mathias@duoc.cl')).toBeTrue();
-    expect(correoValido('profe@profesor.duoc.cl')).toBeTrue();
-    expect(correoValido('juan@hotmail.com')).toBeFalse();
-    expect(correoValido('sinarroba.cl')).toBeFalse();
-    expect(correoValido('a@b@gmail.com')).toBeFalse();
+    expect(correoValido('mathias@duoc.cl')).toBe(true);
+    expect(correoValido('profe@profesor.duoc.cl')).toBe(true);
+    expect(correoValido('juan@hotmail.com')).toBe(false);
+    expect(correoValido('sinarroba.cl')).toBe(false);
+    expect(correoValido('a@b@gmail.com')).toBe(false);
   });
 
   it('claveValida y rutValido respetan sus reglas', () => {
-    expect(claveValida('1234')).toBeTrue();
-    expect(claveValida('123')).toBeFalse();
-    expect(claveValida('12345678901')).toBeFalse();
-    expect(rutValido('19011022K')).toBeTrue();
-    expect(rutValido('19.011.022-K')).toBeFalse();
+    expect(claveValida('1234')).toBe(true);
+    expect(claveValida('123')).toBe(false);
+    expect(claveValida('12345678901')).toBe(false);
+    expect(rutValido('19011022K')).toBe(true);
+    expect(rutValido('19.011.022-K')).toBe(false);
   });
 
   it('validarProducto detecta precio inválido y oferta mayor al precio', () => {
@@ -134,7 +134,7 @@ describe('Consultas y reportes del administrador', () => {
   });
 
   it('iniciarSesion guarda la sesión y cerrarSesion la elimina', () => {
-    expect(db.iniciarSesion('cliente@gmail.com', 'cliente1').ok).toBeTrue();
+    expect(db.iniciarSesion('cliente@gmail.com', 'cliente1').ok).toBe(true);
     expect(db.usuarioActual().nombre).toBe('Pedro');
     db.cerrarSesion();
     expect(db.usuarioActual()).toBeNull();

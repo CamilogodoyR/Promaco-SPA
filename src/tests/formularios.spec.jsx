@@ -103,7 +103,7 @@ describe('Pruebas de estado: filtros del catálogo', () => {
 
 describe('Pruebas de eventos con mocks: panel admin y checkout', () => {
   it('eliminar un producto pide confirmación (window.confirm simulado) y lo quita de la tabla', () => {
-    const confirmar = spyOn(window, 'confirm').and.returnValue(true); // mock: el usuario acepta
+    const confirmar = vi.spyOn(window, 'confirm').mockReturnValue(true); // mock: el usuario acepta
     renderConApp(<ProductosAdmin />);
 
     const fila = screen.getByText('Gravilla Saco 25kg').closest('tr');
@@ -115,7 +115,7 @@ describe('Pruebas de eventos con mocks: panel admin y checkout', () => {
   });
 
   it('si el usuario cancela la confirmación, el producto NO se elimina', () => {
-    spyOn(window, 'confirm').and.returnValue(false); // mock: el usuario cancela
+    vi.spyOn(window, 'confirm').mockReturnValue(false); // mock: el usuario cancela
     renderConApp(<ProductosAdmin />);
 
     const fila = screen.getByText('Gravilla Saco 25kg').closest('tr');

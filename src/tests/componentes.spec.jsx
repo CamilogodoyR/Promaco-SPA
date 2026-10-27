@@ -47,7 +47,7 @@ describe('Pruebas de renderizado condicional', () => {
 
     rerender(<CampoTexto id="correo" etiqueta="Correo" valor="" onChange={() => {}} error="Correo inválido" />);
     expect(screen.getByTestId('error-correo').textContent).toBe('Correo inválido');
-    expect(screen.getByLabelText(/Correo/).classList.contains('is-invalid')).toBeTrue();
+    expect(screen.getByLabelText(/Correo/).classList.contains('is-invalid')).toBe(true);
   });
 
   it('ProductoCard muestra la insignia OFERTA y el precio anterior solo si hay oferta', () => {
@@ -76,24 +76,24 @@ describe('Pruebas de renderizado condicional', () => {
     conRouter(<ProductoCard producto={{ ...productoDePrueba, stock: 0 }} onAgregar={() => {}} />);
 
     expect(screen.getByText('Sin stock')).toBeTruthy();
-    expect(screen.getByRole('button', { name: /Agregar al carrito/ }).disabled).toBeTrue();
+    expect(screen.getByRole('button', { name: /Agregar al carrito/ }).disabled).toBe(true);
   });
 });
 
 describe('Pruebas de propiedades (props)', () => {
   it('BotonAccion recibe correctamente la etiqueta y la función onClick', () => {
-    const alHacerClick = jasmine.createSpy('onClick'); // función simulada (mock)
+    const alHacerClick = vi.fn(); // función simulada (mock)
     render(<BotonAccion etiqueta="Guardar cambios" onClick={alHacerClick} variante="primary" />);
 
     const boton = screen.getByRole('button', { name: 'Guardar cambios' });
-    expect(boton.classList.contains('btn-primary')).toBeTrue();
+    expect(boton.classList.contains('btn-primary')).toBe(true);
 
     fireEvent.click(boton);
     expect(alHacerClick).toHaveBeenCalledTimes(1);
   });
 
   it('BotonAccion deshabilitado no ejecuta la función onClick', () => {
-    const alHacerClick = jasmine.createSpy('onClick');
+    const alHacerClick = vi.fn();
     render(<BotonAccion etiqueta="Pagar" onClick={alHacerClick} deshabilitado />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Pagar' }));
@@ -111,15 +111,16 @@ describe('Pruebas de propiedades (props)', () => {
 
 describe('Pruebas de eventos', () => {
   it('al hacer click en "Agregar al carrito" se llama a onAgregar con el producto', () => {
-    const onAgregar = jasmine.createSpy('onAgregar');
+    const onAgregar = vi.fn();
     conRouter(<ProductoCard producto={productoDePrueba} onAgregar={onAgregar} />);
 
     fireEvent.click(screen.getByRole('button', { name: /Agregar al carrito/ }));
-    expect(onAgregar).toHaveBeenCalledOnceWith(productoDePrueba);
+    expect(onAgregar).toHaveBeenCalledTimes(1);
+    expect(onAgregar).toHaveBeenCalledWith(productoDePrueba);
   });
 
   it('CampoTexto ejecuta onChange cuando el usuario escribe', () => {
-    const onChange = jasmine.createSpy('onChange');
+    const onChange = vi.fn();
     render(<CampoTexto id="nombre" etiqueta="Nombre" valor="" onChange={onChange} />);
 
     fireEvent.change(screen.getByLabelText(/Nombre/), { target: { value: 'Mathias' } });
@@ -127,8 +128,8 @@ describe('Pruebas de eventos', () => {
   });
 
   it('TablaCarrito avisa al padre cuando se cambia una cantidad o se elimina un producto', () => {
-    const onCambiarCantidad = jasmine.createSpy('onCambiarCantidad');
-    const onQuitar = jasmine.createSpy('onQuitar');
+    const onCambiarCantidad = vi.fn();
+    const onQuitar = vi.fn();
     const items = [{ productoId: 7, nombre: 'Pintura', precio: 1000, cantidad: 1 }];
     render(<TablaCarrito items={items} editable onCambiarCantidad={onCambiarCantidad} onQuitar={onQuitar} />);
 
@@ -140,7 +141,7 @@ describe('Pruebas de eventos', () => {
   });
 
   it('TablaCarrito ignora cantidades inválidas (0 o negativas)', () => {
-    const onCambiarCantidad = jasmine.createSpy('onCambiarCantidad');
+    const onCambiarCantidad = vi.fn();
     const items = [{ productoId: 7, nombre: 'Pintura', precio: 1000, cantidad: 1 }];
     render(<TablaCarrito items={items} editable onCambiarCantidad={onCambiarCantidad} onQuitar={() => {}} />);
 
