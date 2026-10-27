@@ -1,21 +1,23 @@
 # Promaco SpA — Tienda Online (React) · Evaluación Parcial 2
 
-Migración del prototipo HTML de la Evaluación 1 a **React**, con **Bootstrap 5** para el diseño responsivo, un **archivo de datos con CRUD y persistencia en localStorage**, nuevas vistas de tienda y administración, y **pruebas unitarias con Jasmine + Karma**.
+Migración del prototipo HTML de la Evaluación 1 a **React**, con **Bootstrap 5** para el diseño responsivo, un **archivo de datos con CRUD y persistencia en localStorage**, nuevas vistas de tienda y administración, y **pruebas unitarias con Vitest en Chromium**.
 
 ---
 
 ## Cómo ejecutar
 
-Requisitos: **Node.js 18 o superior** y **Google Chrome** (para las pruebas).
+Requisitos: **Node.js 18 o superior**.
 
 ```bash
-npm install        # instala las dependencias (solo la primera vez)
-npm run dev        # abre la app en http://localhost:5173
-npm test           # ejecuta las pruebas con Karma + Jasmine y genera la cobertura
-npm run build      # genera la versión de producción en /dist
+npm install                        # instala las dependencias (solo la primera vez)
+npx playwright install chromium    # descarga Chromium para las pruebas (solo la primera vez)
+npm run dev                        # abre la app en http://localhost:5173
+npm test                           # ejecuta las 45 pruebas con Vitest en Chromium
+npm run coverage                   # pruebas + reporte de cobertura
+npm run build                      # genera la versión de producción en /dist
 ```
 
-El reporte de cobertura queda en `coverage/html/index.html` (abrir en el navegador) y el resumen en `coverage/resumen.txt`.
+El reporte de cobertura queda en `coverage/index.html` (abrir en el navegador) y el resumen en `coverage/resumen.txt`.
 
 ## Usuarios de prueba
 
@@ -40,9 +42,9 @@ También se puede crear una cuenta nueva desde **Crear cuenta**.
 | React Router 6 | Navegación entre vistas sin recargar la página (SPA) |
 | Bootstrap 5.3 + Bootstrap Icons | Diseño responsivo (grilla, navbar colapsable, formularios, tablas) |
 | localStorage | Persistencia de productos, categorías, usuarios, órdenes, carrito y sesión |
-| Jasmine + Karma | Pruebas unitarias en un navegador real (Chrome headless) |
+| Vitest (modo navegador) | Pruebas unitarias en un navegador real: Chromium sin ventana, controlado por Playwright |
 | React Testing Library | Renderizar componentes y simular eventos dentro de las pruebas |
-| karma-coverage (Istanbul) | Reporte de cobertura de código |
+| @vitest/coverage-v8 | Reporte de cobertura de código (motor v8 de Chromium) |
 
 ## Estructura del proyecto
 
@@ -71,9 +73,8 @@ src/
 ├── hooks/useAviso.js        # Aviso temporal (reemplaza los alert() de la entrega 1)
 ├── utils/                   # validaciones.js (migradas de la entrega 1) y formato.js
 ├── styles/estilo.css        # Estilos propios (se cargan después de Bootstrap)
-└── tests/                   # Pruebas Jasmine (*.spec.js / *.spec.jsx)
-karma.conf.cjs               # Configuración de Karma
-babel.config.cjs             # Babel para compilar JSX en las pruebas + instrumentar cobertura
+└── tests/                   # Pruebas Vitest (*.spec.js / *.spec.jsx)
+vite.config.js               # Vite + configuración de Vitest (navegador Chromium y cobertura)
 ```
 
 ## Rutas
@@ -92,7 +93,7 @@ babel.config.cjs             # Babel para compilar JSX en las pruebas + instrume
 | `mostrarError()` escribía en el DOM con `getElementById` | Los errores se guardan en el **estado** (`useState`) y React los muestra |
 | `alert()` al agregar al carrito | Aviso temporal no bloqueante (`useAviso`) |
 | Carrito solo en `carrito.html` | Carrito en un **Context**: la navbar muestra el total en tiempo real |
-| Sin pruebas | 45 pruebas unitarias con Jasmine + Karma y reporte de cobertura |
+| Sin pruebas | 45 pruebas unitarias con Vitest en Chromium y reporte de cobertura |
 
 ## Pruebas
 
@@ -101,8 +102,8 @@ Las pruebas están en `src/tests/` y siguen la propuesta del docente:
 - **Renderizado** y **renderizado condicional** (`componentes.spec.jsx`)
 - **Propiedades (props)**, incluido el botón que recibe etiqueta y `onClick` (`componentes.spec.jsx`)
 - **Estado (state)** de formularios y filtros (`formularios.spec.jsx`)
-- **Eventos** simulados con `fireEvent` y funciones espía `jasmine.createSpy` (ambos archivos)
-- **Mocks** con `spyOn`: `window.confirm`, `Storage.prototype.getItem` (`formularios.spec.jsx`, `datos.spec.js`)
+- **Eventos** simulados con `fireEvent` y funciones espía `vi.fn()` (ambos archivos)
+- **Mocks** con `vi.spyOn`: `window.confirm`, `Storage.prototype.getItem` (`formularios.spec.jsx`, `datos.spec.js`)
 - **Lógica de datos**: CRUD, carrito, promoción, compras, reportes y validaciones (`datos.spec.js`)
 
 ## Equipo
